@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes for You</title>
+    <link rel="icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="recipesForYou.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class = "text-dark">
+    <header id = "header" class="container-fluid">
+      <nav id = "nav-bar" class = "navbar fixed-top">
+      <a class="navbar-brand" href="#">Simple Supper<sup>&reg;</sup></a>
+        <menu class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="recipesForYou.html">Recipes for You</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="allRecipes.html">All Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="about.html">About</a>
+          </li>
+        </menu>
+      </nav>
+    </header>
+
+
+    <main class="container-fluid bg-light text-center">
+      <br>
+        <h2>Recipes for You</h2>
+          <br>
+      <h3>Select ingreditents you have or would like to use</h3>
+          <br>
+        <h5>Protein</h5>
+        <div class="dropdown" data-control="checkbox-dropdown">
+          <label class="dropdown-label">Select</label>
+          
+          <div class="dropdown-list">
+            <a href="#" data-toggle="check-all" class="dropdown-option">
+              Check All  
+            </a>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 1" />
+              Chicken
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 2" />
+              Ground Beef
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 3" />
+              Pork
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 4" />
+              Fish
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 5" />
+              Turkey
+            </label>      
+          </div>
+        </div>
+      <h5>Produce</h5>
+        <div class="dropdown" data-control="checkbox-dropdown">
+          <label class="dropdown-label">Select</label>
+          
+          <div class="dropdown-list">
+            <a href="#" data-toggle="check-all" class="dropdown-option">
+              Check All  
+            </a>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 1" />
+              Potatoes
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 2" />
+              Carrots
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 3" />
+              Peaches
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 4" />
+              Cucumber
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 5" />
+              Apples
+            </label>      
+          </div>
+        </div>
+      <h5>Other Ingredients</h5>
+        <div class="dropdown" data-control="checkbox-dropdown">
+          <label class="dropdown-label">Select</label>
+          
+          <div class="dropdown-list">
+            <a href="#" data-toggle="check-all" class="dropdown-option">
+              Check All  
+            </a>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 1" />
+              Cream of mushroom soup
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 2" />
+              Brown gravy packet
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 3" />
+              Cream of chicken soup
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 4" />
+              Beef broth
+            </label>
+            
+            <label class="dropdown-option">
+              <input type="checkbox" name="dropdown-group" value="Selection 5" />
+              Italian seasoning
+            </label>      
+          </div>
+        </div>
+      <br />
+      <h3>These recipes use the ingredients you have...</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th> <img width="400px" src="placeholder.jpg" alt="recipe1"/> </td>
+          </tr>
+          <tr>
+            <td> <img width="400px" src="placeholder.jpg" alt="recipe2"/> </td>
+          </tr>
+          <tr>
+            <td> <img width="400px" src="placeholder.jpg" alt="recipe3"/> </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer class="bg-dark text-white-50">
+      <div class="container-fluid">
+        <span class="text-reset">Jaiden Tripp</span>
+        <a href="https://github.com/jaidentripp/CS260StartupProject">GitHub</a>
+      </div>
+      </footer>
+  </body>
+</html>
