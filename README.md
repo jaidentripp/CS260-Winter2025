@@ -40,3 +40,15 @@ For this deliverable I built out the structure of my application using HTML.
  - [x] Images - I put in placeholder images where the recipes will go and where other images will be placed.
  - [x] DB/Login - Input box and submit button for login. The recipes represent data pulled from the database.
  - [x] WebSocket - The saved recipes will be shown in recipes for you page.
+
+## CSS Deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+- [x] Header, footer, and main content body.
+- [x] Navigation elements - changed the color of the navigation bar, navigation elements, and logo. Also changed the formatting of the navigation elements.
+- [x] Responsive to window resizing - my website looks good on all window sizes.
+- [x] Application Elements - used good contrast as well as whitespace/formatting.
+- [x] Application text content - consistent fonts.
+- [x] Application images - able to load images and some images are placeholders for where recipes will be grabbed from the API.
+
