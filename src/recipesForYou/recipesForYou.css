@@ -69,3 +69,14 @@
   text-align: center;
   margin-bottom: 20px;
 }
+
+h5 {
+  text-align: justify;
+  font-size: 1.1em;
+  padding-top: 20px;
+  color: #333;
+}
+
+h2, h3, label {
+  color: #333;
+}

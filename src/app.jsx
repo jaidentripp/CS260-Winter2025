@@ -14,7 +14,7 @@ export default function App() {
         <div className="body bg-dark text-light">
             <header id = "header" className="container-fluid">
                 <nav id = "nav-bar" className= "navbar fixed-top">
-                <div className="navbar-brand" href="#">Simple Supper<sup>&reg;</sup></div>
+                <div className="navbar-brand">Simple Supper<sup>&reg;</sup></div>
                     <menu className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="/">Home</NavLink>
@@ -43,7 +43,7 @@ export default function App() {
             <footer className="bg-dark text-white-50">
                 <div className="container-fluid">
                     <span className="text-reset">Jaiden Tripp</span>
-                    <NavLink className="text-reset" href="https://github.com/jaidentripp/CS260StartupProject">GitHub</NavLink>
+                    <NavLink className="text-reset" href="https://github.com/jaidentripp/CS260-Winter2025">GitHub</NavLink>
                 </div>
             </footer>
         </div>

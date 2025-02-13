@@ -4,6 +4,7 @@ main {
     padding: 20px;
     font-family: Arial, sans-serif;
     line-height: 1.6;
+    background-color: white;
 }
 
 #picture {
@@ -39,4 +40,10 @@ p {
 #quote div:last-child {
     text-align: right;
     font-weight: bold;
+}
+
+div {
+    text-align: center;
+    font-size: 1em;
+    color: #333;
 }

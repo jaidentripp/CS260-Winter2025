@@ -3,6 +3,8 @@
     flex-direction: column;
     min-width: 375px;
     margin-top: 60px;
+    background-color: white;
+    padding-top: 20px;
   }
   
   /* header {
@@ -38,13 +40,17 @@
   
   .navbar-brand {
     padding-left: 0.03em;
-    border-bottom: solid rgb(62, 96, 75) thin;
+    border-bottom: solid rgb(54, 81, 65) medium;
     position: static;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
     text-decoration: none;
-    color: inherit;
+    color: #262525;
     margin-right: 20px;
+  }
+
+  .navbar-brand:hover {
+    color: inherit;
   }
 
   #nav-bar {
@@ -65,14 +71,14 @@
 
   #nav-bar li {
     float: left;
-    border-right: 2px solid #000000;
+    border-right: 2px solid #333;
   }
   
   #nav-bar li a {
     display: block;
-    color: black;
+    color: #262525;
     text-align: center;
-    padding: 14px 16px;
+    padding: 1px 10px;
     text-decoration: none;
   }
   
@@ -117,5 +123,9 @@
     main {
       flex: 1 100vh;
     }
+  }
+
+  h1 {
+    color: #262525;
   }
   
