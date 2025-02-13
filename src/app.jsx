@@ -17,7 +17,7 @@ export default function App() {
                 <div className="navbar-brand" href="#">Simple Supper<sup>&reg;</sup></div>
                     <menu className="navbar-nav">
                         <li className="nav-item">
-                            <NavLink className="nav-link active" to="index">Home</NavLink>
+                            <NavLink className="nav-link active" to="/">Home</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="recipesForYou">Recipes for You</NavLink>
