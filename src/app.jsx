@@ -40,10 +40,10 @@ export default function App() {
                 <Route path='*' element={<NotFound />} />
             </Routes>
 
-            <footer className="bg-dark text-white-50">
+            <footer className="footer-custom">
                 <div className="container-fluid">
                     <span className="text-reset">Jaiden Tripp</span>
-                    <NavLink className="text-reset" href="https://github.com/jaidentripp/CS260-Winter2025">GitHub</NavLink>
+                    <a className="text-reset" href="https://github.com/jaidentripp/CS260-Winter2025">GitHub</a>
                 </div>
             </footer>
         </div>

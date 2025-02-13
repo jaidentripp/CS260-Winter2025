@@ -24,6 +24,11 @@
   footer {
     flex: 0 30px;
   }
+
+  .footer-custom {
+    background-color: #99ad9e;
+    color: #262525;
+  }
   
   menu {
     flex: 1;
@@ -42,7 +47,7 @@
     padding-left: 0.03em;
     border-bottom: solid rgb(54, 81, 65) medium;
     position: static;
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: bold;
     text-decoration: none;
     color: #262525;
@@ -50,7 +55,7 @@
   }
 
   .navbar-brand:hover {
-    color: inherit;
+    color: #262525;
   }
 
   #nav-bar {
@@ -111,6 +116,10 @@
   
   footer a {
     float: right;
+  }
+
+  footer span {
+    float: left;
   }
   
   @media (max-height: 600px) {
