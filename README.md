@@ -52,3 +52,10 @@ For this deliverable I properly styled the application into its final appearance
 - [x] Application text content - consistent fonts.
 - [x] Application images - able to load images and some images are placeholders for where recipes will be grabbed from the API.
 
+##React Part 1
+
+For this deliverable I did the following. I checked the box [x] and added a description for things I completed.
+
+- [x] Bundled using Vite - Easy to install and use Vite.
+- [x] Components - Easy to bring the code over from HTML and CSS, but had to rework them quite a bit to achieve prefered styling.
+- [x] Router - Easy to creating the component routing.
