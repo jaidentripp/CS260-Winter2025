@@ -11,6 +11,7 @@
     padding: 6px 12px;
     line-height: 1;
     cursor: pointer;
+    width: 200px;
   }
   
   .dropdown .dropdown-label:before {
@@ -31,6 +32,9 @@
     transition: transform .15s ease-in-out .15s;
     max-height: 66vh;
     overflow-y: auto;
+    min-width: 200px;
+    width: 200px;
+    z-index: 10;
   }
   
   .dropdown .dropdown-option {
