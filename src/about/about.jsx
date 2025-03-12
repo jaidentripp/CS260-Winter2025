@@ -2,9 +2,11 @@ import React from 'react';
 import './about.css';
 
 export function About() {
+  const [imageSource, setImageSource] = useState("placeholder.jpg");
+
   return (
     <main>
-        <div id="picture" class="picture-box"><img width="400px" src="placeholder.jpg" alt="random" /></div>
+        <div id="picture" class="picture-box"><img width="400px" src={imageSource} alt="random" /></div>
   
         <p>
           Simple supper is a website that allows you to not have to think about what you want to make for dinner. It 
