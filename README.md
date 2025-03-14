@@ -59,3 +59,10 @@ For this deliverable I did the following. I checked the box [x] and added a desc
 - [x] Bundled using Vite - Easy to install and use Vite.
 - [x] Components - Easy to bring the code over from HTML and CSS, but had to rework them quite a bit to achieve prefered styling.
 - [x] Router - Easy to creating the component routing.
+
+## React Part 2
+
+For this deliverable I did the following. I checked the box [x] and added a description for things I completed.
+
+- [x] All functionality implemented or mocked out - Functionality is working in preparation for further steps
+- [x] Hooks - Used useState and useEffect on the Login, All Recipes, and Recipes for You pages
