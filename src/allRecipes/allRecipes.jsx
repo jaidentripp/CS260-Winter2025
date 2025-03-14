@@ -3,12 +3,15 @@ import './allRecipes.css';
 
 export function AllRecipes() {
   const [recipies, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('useEffect triggered');
     fetchRecipes();
   }, []);
 
   const fetchRecipes = async () => {
+    console.log('Fetching recipes...');
     //Simulating API call to fetch recipies
     //*replace with API call
     const mockRecipes = [
@@ -18,7 +21,9 @@ export function AllRecipes() {
     ];
 
     setTimeout(() => {
+      console.log('Setting recipes:', mockRecipes);
       setRecipes(mockRecipes);
+      setLoading(false);
     }, 1000);
   };
 
@@ -31,13 +36,23 @@ export function AllRecipes() {
           </tr>
         </thead>
         <tbody>
-          {recipies.map((recipie) => (
+          {loading ? (
+            <tr>
+              <td>Loading recipes...</td>
+            </tr>
+          ) : recipies.length == 0 ? (
+            <tr>
+              <td>No recipes found.</td>
+            </tr>
+          ) : (
+          recipies.map((recipe) => (
             <tr key={recipe.id}>
               <td>
                 <img width="400px" src={recipe.image} alt={recipe.alt} />
               </td>
             </tr>
-          ))}
+            ))
+          )}
           {/* <tr>
             <td> <img width="400px" src="placeholder.jpg" alt="recipe1"/> </td>
           </tr>
