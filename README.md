@@ -66,3 +66,4 @@ For this deliverable I did the following. I checked the box [x] and added a desc
 
 - [x] All functionality implemented or mocked out - Functionality is working in preparation for further steps
 - [x] Hooks - Used useState and useEffect on the Login, All Recipes, and Recipes for You pages
+- [x] 'Create Account' and 'Login' functionality fixed
