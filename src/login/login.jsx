@@ -7,7 +7,7 @@ export function Login() {
   const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     //Basic validation
@@ -21,12 +21,26 @@ export function Login() {
       return;
     }
 
-    setErrorMessage('');
+    try {
+      const userExists = await checkUserExists(email);
+      if (!userExists) {
+        setErrorMessage('No account found with this email. Please sign up first.');
+        return;
+      }
 
-    console.log('Logging in with:', { email, password });
+      console.log('Attempting login with:', { email, password });
+
+      window.location.href = '/allRecipes';
+    } catch (error) {
+      setErrorMessage('An error occurred. Please try again.');
+    }
+
+    //setErrorMessage('');
+
+    //console.log('Logging in with:', { email, password });
 
     //Redirect to allRecipes
-    window.location.href = '/allRecipes';
+    //window.location.href = '/allRecipes';
   };
 
   const handleCreateAccount = (event) => {
@@ -34,20 +48,46 @@ export function Login() {
 
     if (!name || !email || !password) {
       setErrorMessage('Please fill in all fields.');
+      return;
     }
 
     if (!validateEmail(email)) {
       setErrorMessage('Please enter a valid email address.');
+      return;
     }
 
-    setErrorMessage('');
+    try {
+      registerUser(name, email, password);
+      console.log('Account created successfully. Logging in...');
 
-    console.log('Create accoutn with:', { name, email, password });
+      window.location.href = '/allRecipes';
+    } catch (error) {
+      setErrorMessage('An error occurred while creating your account. Please try again.');
+    }
+
+    //setErrorMessage('');
+
+    //console.log('Create account with:', { name, email, password });
+
+    //console.log('Account created successfully. Logging in...');
+
+    //window.location.href = '/allRecipes';
   };
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const checkUserExists = async (email) => {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    return users.some(user => user.email === email);
+  }
+
+  const registerUser = (name, email, password) => {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push({ name, email, password });
+    localStorage.setItem('users', JSON.stringify(users));
   };
 
   return (

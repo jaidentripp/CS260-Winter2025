@@ -7,14 +7,19 @@ import { Login } from './login/login';
 import { AllRecipes } from './allRecipes/allRecipes';
 import { RecipesForYou } from './recipesForYou/recipesForYou';
 import { About } from './about/about';
+import { useState } from 'react';
 
 export default function App() {
+  const [userName, setUserName] = useState('');
+
   return (
     <BrowserRouter>
         <div className="body bg-dark text-light">
             <header id = "header" className="container-fluid">
                 <nav id = "nav-bar" className= "navbar fixed-top">
                 <div className="navbar-brand">Simple Supper<sup>&reg;</sup></div>
+                {/* Display user's name */}
+                {userName && <span className="text-light">Welcome {userName}!</span>} 
                     <menu className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="/">Home</NavLink>
