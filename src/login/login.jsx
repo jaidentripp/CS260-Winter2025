@@ -7,6 +7,8 @@ export function Login() {
   const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
+  //export function Login({ setUserName }) {
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -28,12 +30,22 @@ export function Login() {
         return;
       }
 
+      //const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+      // const user = users.find(u => u.email === email);
+      // if (user?.name) {
+      //   setUserName(user.name.split(' ')[0]);
+      // } else {
+      //   throw new Error('User data incomplete');
+      // }
+
       console.log('Attempting login with:', { email, password });
 
       window.location.href = '/allRecipes';
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
     }
+  
 
     //setErrorMessage('');
 
@@ -60,6 +72,23 @@ export function Login() {
       registerUser(name, email, password);
       console.log('Account created successfully. Logging in...');
 
+      //setUserName(name.split(' ')[0]);
+      // const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      // if (existingUsers.some(u => u.email === email)) {
+      //   throw new Error('Email already registered.');
+      // }
+
+      // registerUser(name, email, password);
+
+      //Store user data with name
+      //const newUser = { name, email, password };
+      //localStorage.setItem('users', JSON.stringify([...existingUsers, newUser]));
+
+      // if (name?.trim()) {
+      //   setUserName(name.split(' ')[0].trim());
+      // }
+
+      // console.log('Account created successfully. Logging in...');
       window.location.href = '/allRecipes';
     } catch (error) {
       setErrorMessage('An error occurred while creating your account. Please try again.');
