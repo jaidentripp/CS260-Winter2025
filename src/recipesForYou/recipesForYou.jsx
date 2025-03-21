@@ -19,22 +19,43 @@ export function RecipesForYou() {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Function to fetch recipes from TheMealDB API
+  const fetchRecipes = async (ingredients) => {
+    setLoading(true);
+    const recipes = [];
+    for (const ingredient of ingredients) {
+      try {
+        const respone = await
+        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+        const data = await response.json();
+        if (data.meals) {
+          recipes.push(...data.meals);
+        }
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    }
+    const uniqueRecipes = Array.from(new Set(recipes.map(r => r.idMeal))).map(id => recipes.find(r => r.idMeal === id));
+    setFilteredRecipes(uniqueRecipes);
+    setLoading(false);
+  };
+
   // Mock recipe data
-  const mockRecipes = [
-    { 
-      id: 1, 
-      title: 'Chicken Pot Pie',
-      image: 'https://via.placeholder.com/400', 
-      ingredients: ['Chicken', 'Potatoes', 'Carrots', 'Cream of mushroom soup']
-    },
-    { 
-      id: 2, 
-      title: 'Beef Stew',
-      image: 'https://via.placeholder.com/400', 
-      ingredients: ['Ground Beef', 'Potatoes', 'Carrots', 'Beef broth']
-    },
-    // Add more mock recipes as needed
-  ];
+  // const mockRecipes = [
+  //   { 
+  //     id: 1, 
+  //     title: 'Chicken Pot Pie',
+  //     image: 'https://via.placeholder.com/400', 
+  //     ingredients: ['Chicken', 'Potatoes', 'Carrots', 'Cream of mushroom soup']
+  //   },
+  //   { 
+  //     id: 2, 
+  //     title: 'Beef Stew',
+  //     image: 'https://via.placeholder.com/400', 
+  //     ingredients: ['Ground Beef', 'Potatoes', 'Carrots', 'Beef broth']
+  //   },
+  //   // Add more mock recipes as needed
+  // ];
 
   // Filter recipes when selections change
   useEffect(() => {
@@ -67,6 +88,8 @@ export function RecipesForYou() {
       setFilteredRecipes([]);
     }
   }, [selectedProteins, selectedProduce, selectedOther]);
+
+
 
   // Dropdown component with state management
   function Dropdown({ title, options, selected, onSelect }) {
@@ -147,146 +170,11 @@ export function RecipesForYou() {
               </tr>
             ))
           )}
-          {/* <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe1"/> </td>
-          </tr>
-          <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe2"/> </td>
-          </tr>
-          <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe3"/> </td>
-          </tr> */}
         </tbody>
       </table>
     </main>
   );
 }
-  /* return (
-    <main className="container-fluid bg-light text-center">
-    <h2>Recipes for You</h2>
-      <h3>Select ingreditents you have or would like to use</h3>
-        <h5>Protein</h5>
-        <div className="dropdown" data-control="checkbox-dropdown">
-          <label className="dropdown-label">Select</label>
-          
-          <div className="dropdown-list">
-            <a href="#" data-toggle="check-all" className="dropdown-option">
-              Check All  
-            </a>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 1" />
-              Chicken
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 2" />
-              Ground Beef
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 3" />
-              Pork
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 4" />
-              Fish
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 5" />
-              Turkey
-            </label>      
-          </div>
-        </div>
-      <h5>Produce</h5>
-        <div className="dropdown" data-control="checkbox-dropdown">
-          <label className="dropdown-label">Select</label>
-          
-          <div className="dropdown-list">
-            <a href="#" data-toggle="check-all" className="dropdown-option">
-              Check All  
-            </a>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 1" />
-              Potatoes
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 2" />
-              Carrots
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 3" />
-              Peaches
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 4" />
-              Cucumber
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 5" />
-              Apples
-            </label>      
-          </div>
-        </div>
-      <h5>Other Ingredients</h5>
-        <div className="dropdown" data-control="checkbox-dropdown">
-          <label className="dropdown-label">Select</label>
-          
-          <div className="dropdown-list">
-            <a href="#" data-toggle="check-all" className="dropdown-option">
-              Check All  
-            </a>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 1" />
-              Cream of mushroom soup
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 2" />
-              Brown gravy packet
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 3" />
-              Cream of chicken soup
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 4" />
-              Beef broth
-            </label>
-            
-            <label className="dropdown-option">
-              <input type="checkbox" name="dropdown-group" value="Selection 5" />
-              Italian seasoning
-            </label>      
-          </div>
-        </div>
-      <br />
-      <h3>These recipes use the ingredients you have...</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe1"/> </td>
-          </tr>
-          <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe2"/> </td>
-          </tr>
-          <tr>
-            <td> <img width="400px" src="placeholder.jpg" alt="recipe3"/> </td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
-  ); */
 
   function Dropdown({ title, options }) {
     const [isOpen, setIsOpen] = useState(false);
