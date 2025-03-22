@@ -5,9 +5,9 @@ import './recipesForYou.css';
 const EDAMAM_APP_ID = ''
 
 export function RecipesForYou() {
-  const proteinOptions = ['Chicken', 'Beef', 'Pork', 'Fish', 'Turkey'];
+  const proteinOptions = ['Chicken', 'Beef', 'Pork', 'Clams', 'Turkey'];
   const produceOptions = ['Potato', 'Carrot', 'Apple', 'Onion', 'Tomato', 'Broccoli', 'Mushroom'];
-  const otherOptions = ['Salt', 'Pepper', 'Olive Oil', 'Garlic', 'Butter', 'Thyme'];
+  const otherOptions = ['Salt', 'Pepper', 'Olive Oil', 'Garlic', 'Butter', 'Thyme', 'Plain chocolate'];
 
   // State management
   const [selectedProteins, setSelectedProteins] = useState([]);
