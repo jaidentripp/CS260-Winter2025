@@ -46,7 +46,7 @@ export function RecipesForYou() {
       );
       
       const data = await Promise.all(responses.map(res => res.json()));
-      
+      //return data.meals || [];
       const recipes = data.flatMap(response => response.meals || []);
       
       // Remove duplicates using a Set
@@ -55,12 +55,39 @@ export function RecipesForYou() {
       
       setFilteredRecipes(uniqueRecipes);
     } catch (error) {
-      console.error('API Error:', error);
+      console.error('API error:', error);
+      //return [];
       setFilteredRecipes([]);
-    } finally {
-      setLoading(false);
-    }
+     } finally {
+       setLoading(false);
+     }
   };
+
+  // const fetchInclusiveRecipes = async (ingredients) => {
+  //   setLoading(true);
+
+  //   try {
+  //     // Fetch recipes for each ingredient
+  //     const recipeLists = await Promise.all(
+  //       ingredients.map((ingredient) => fetchRecipesByIngredient(ingredient))
+  //     );
+
+  //     // Find the intersection of all recipe lists
+  //     const commonRecipes = recipeLists.reduce((acc, currentList) => {
+  //       if (acc === null) return currentList; // Initialize with the first list
+  //       return acc.filter((recipe) =>
+  //         currentList.some((r) => r.idMeal === recipe.idMeal)
+  //       );
+  //     }, null);
+
+  //     setFilteredRecipes(commonRecipes || []);
+  //   } catch (error) {
+  //     console.error('Error fetching inclusive recipes:', error);
+  //     setFilteredRecipes([]);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const fetchRecipeDetails = async (id) => {
     try {
@@ -79,7 +106,7 @@ export function RecipesForYou() {
   };
 
   const closeRecipeDetails = () => {
-    setSelectedRecipe(null);
+     setSelectedRecipe(null);
   };
 
 
@@ -137,10 +164,13 @@ export function RecipesForYou() {
 
     if (selectedIngredients.length > 0) {
       fetchRecipes(selectedIngredients);
+      //fetchInclusiveRecipes(selectedIngredients);
     } else {
       setFilteredRecipes([]);
     }
   }, [selectedProteins, selectedProduce, selectedOther]);
+
+  //const closeRecipeDetails = () => setSelectedRecipe(null);
 
   // Dropdown component with state management
   function Dropdown({ title, options, selected, onSelect }) {
@@ -233,11 +263,13 @@ export function RecipesForYou() {
             key={recipe.idMeal} 
             className="recipe-card"
             onClick={() => handleRecipeClick(recipe.idMeal)}
+            //onClick={() => fetchRecipeDetails(recipe.idMeal)}
             role="button"
             tabIndex={0}
           >
               <img 
               src={recipe.strMealThumb || 'https://via.placeholder.com/400'} 
+              //src={recipe.strMealThumb}
               alt={recipe.strMeal} 
               />
               <h4>{recipe.strMeal}</h4>
