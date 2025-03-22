@@ -93,6 +93,7 @@ h2, h3, label {
 }
 
 .recipe-card {
+  cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -101,6 +102,7 @@ h2, h3, label {
 
 .recipe-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .recipe-card img {

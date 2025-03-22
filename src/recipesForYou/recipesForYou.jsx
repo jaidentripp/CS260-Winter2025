@@ -203,7 +203,7 @@ export function RecipesForYou() {
       {selectedRecipe && (
         <div className="recipe-details-modal">
           <div className="recipe-details-content">
-            <button onClick={closeRecipeDetails} className="close-button">&times;</button>
+            <button onClick={() => setSelectedRecipe(null)} className="close-button">&times;</button>
             <h2>{selectedRecipe.strMeal}</h2>
             <img src={selectedRecipe.strMealThumb} alt={selectedRecipe.strMeal} />
             <h3>Ingredients:</h3>
@@ -229,7 +229,13 @@ export function RecipesForYou() {
         ) : filteredRecipes.length === 0 ? (
           <p>No matching recipes found. Try selecting different ingredients.</p>
         ) : ( filteredRecipes.map((recipe) => (
-          <div key={recipe.idMeal} className="recipe-card">
+          <div 
+            key={recipe.idMeal} 
+            className="recipe-card"
+            onClick={() => handleRecipeClick(recipe.idMeal)}
+            role="button"
+            tabIndex={0}
+          >
               <img 
               src={recipe.strMealThumb || 'https://via.placeholder.com/400'} 
               alt={recipe.strMeal} 
