@@ -58,38 +58,46 @@ export function RecipesForYou() {
   // ];
 
   // Filter recipes when selections change
-  useEffect(() => {
-    const filterRecipes = () => {
-      setLoading(true);
+  // useEffect(() => {
+  //   const filterRecipes = () => {
+  //     setLoading(true);
       
-      // Combine all selected ingredients
-      const selectedIngredients = [
-        ...selectedProteins,
-        ...selectedProduce,
-        ...selectedOther
-      ];
+  //     // Combine all selected ingredients
+  //     const selectedIngredients = [
+  //       ...selectedProteins,
+  //       ...selectedProduce,
+  //       ...selectedOther
+  //     ];
 
-      // Filter recipes that include at least one selected ingredient
-      const matchingRecipes = mockRecipes.filter(recipe =>
-        selectedIngredients.some(ingredient => 
-          recipe.ingredients.includes(ingredient)
-        )
-      );
-      // Simulate API delay
-      setTimeout(() => {
-        setFilteredRecipes(matchingRecipes);
-        setLoading(false);
-      }, 500);
-    };
+  //     // Filter recipes that include at least one selected ingredient
+  //     const matchingRecipes = mockRecipes.filter(recipe =>
+  //       selectedIngredients.some(ingredient => 
+  //         recipe.ingredients.includes(ingredient)
+  //       )
+  //     );
+  //     // Simulate API delay
+  //     setTimeout(() => {
+  //       setFilteredRecipes(matchingRecipes);
+  //       setLoading(false);
+  //     }, 500);
+  //   };
 
-    if (selectedProteins.length > 0 || selectedProduce.length > 0 || selectedOther.length > 0) {
-      filterRecipes();
+  //   if (selectedProteins.length > 0 || selectedProduce.length > 0 || selectedOther.length > 0) {
+  //     filterRecipes();
+  //   } else {
+  //     setFilteredRecipes([]);
+  //   }
+  // }, [selectedProteins, selectedProduce, selectedOther]);
+
+  useEffect(() => {
+    const selectedIngredients = [...selectedProteins, ...selectedProduce, ...selectedOther];
+
+    if (selectedIngredients.length > 0) {
+      fetchRecipes(selectedIngredients);
     } else {
       setFilteredRecipes([]);
     }
   }, [selectedProteins, selectedProduce, selectedOther]);
-
-
 
   // Dropdown component with state management
   function Dropdown({ title, options, selected, onSelect }) {
@@ -149,7 +157,20 @@ export function RecipesForYou() {
 
       <br />
       <h3>These recipes use the ingredients you have...</h3>
-      <table>
+      <div className="recipe-grid">
+        {loading ? (
+          <p>Loading recipes...</p>
+        ) : filteredRecipes.length === 0 ? (
+          <p>No matching recipes found. Try selecting different ingredients.</p>
+        ) : ( filteredRecipes.map((recipe) => (
+          <div key={recipe.idMeal} className="recipe-card">
+              <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+              <h4>{recipe.strMeal}</h4>
+            </div>
+          ))
+        )}
+      </div>
+      {/* <table>
         <tbody>
           {loading ? (
             <tr>
@@ -171,7 +192,7 @@ export function RecipesForYou() {
             ))
           )}
         </tbody>
-      </table>
+      </table> */}
     </main>
   );
 }
