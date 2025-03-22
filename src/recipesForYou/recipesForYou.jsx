@@ -4,8 +4,8 @@ import './recipesForYou.css';
 
 export function RecipesForYou() {
   const proteinOptions = ['Chicken', 'Beef', 'Pork', 'Fish', 'Turkey'];
-  const produceOptions = ['Potato', 'Carrot', 'Apple', 'Onion', 'Tomato'];
-  const otherOptions = ['Salt', 'Pepper', 'Olive Oil', 'Garlic', 'Butter'];
+  const produceOptions = ['Potato', 'Carrot', 'Apple', 'Onion', 'Tomato', 'Broccoli', 'Mushroom'];
+  const otherOptions = ['Salt', 'Pepper', 'Olive Oil', 'Garlic', 'Butter', 'Thyme'];
 
   // State management
   const [selectedProteins, setSelectedProteins] = useState([]);
@@ -63,31 +63,34 @@ export function RecipesForYou() {
      }
   };
 
-  // const fetchInclusiveRecipes = async (ingredients) => {
-  //   setLoading(true);
-
-  //   try {
-  //     // Fetch recipes for each ingredient
-  //     const recipeLists = await Promise.all(
-  //       ingredients.map((ingredient) => fetchRecipesByIngredient(ingredient))
-  //     );
-
-  //     // Find the intersection of all recipe lists
-  //     const commonRecipes = recipeLists.reduce((acc, currentList) => {
-  //       if (acc === null) return currentList; // Initialize with the first list
-  //       return acc.filter((recipe) =>
-  //         currentList.some((r) => r.idMeal === recipe.idMeal)
-  //       );
-  //     }, null);
-
-  //     setFilteredRecipes(commonRecipes || []);
-  //   } catch (error) {
-  //     console.error('Error fetching inclusive recipes:', error);
-  //     setFilteredRecipes([]);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchInclusiveRecipes = async (ingredients) => {
+    setLoading(true);
+    try {
+      const responses = await Promise.all(
+        ingredients.map(ingredient =>
+          fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredient)}`)
+        )
+      );
+      
+      const data = await Promise.all(responses.map(res => res.json()));
+      const recipeLists = data.map(response => response.meals || []);
+      
+      // Find the intersection of all recipe lists
+      const commonRecipes = recipeLists.reduce((acc, currentList) => {
+        if (acc === null) return currentList; // Initialize with the first list
+        return acc.filter((recipe) =>
+          currentList.some((r) => r.idMeal === recipe.idMeal)
+        );
+      }, null);
+      
+      setFilteredRecipes(commonRecipes || []);
+    } catch (error) {
+      console.error('API error:', error);
+      setFilteredRecipes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchRecipeDetails = async (id) => {
     try {
@@ -109,62 +112,12 @@ export function RecipesForYou() {
      setSelectedRecipe(null);
   };
 
-
-  // Mock recipe data
-  // const mockRecipes = [
-  //   { 
-  //     id: 1, 
-  //     title: 'Chicken Pot Pie',
-  //     image: 'https://via.placeholder.com/400', 
-  //     ingredients: ['Chicken', 'Potatoes', 'Carrots', 'Cream of mushroom soup']
-  //   },
-  //   { 
-  //     id: 2, 
-  //     title: 'Beef Stew',
-  //     image: 'https://via.placeholder.com/400', 
-  //     ingredients: ['Ground Beef', 'Potatoes', 'Carrots', 'Beef broth']
-  //   },
-  //   // Add more mock recipes as needed
-  // ];
-
-  // Filter recipes when selections change
-  // useEffect(() => {
-  //   const filterRecipes = () => {
-  //     setLoading(true);
-      
-  //     // Combine all selected ingredients
-  //     const selectedIngredients = [
-  //       ...selectedProteins,
-  //       ...selectedProduce,
-  //       ...selectedOther
-  //     ];
-
-  //     // Filter recipes that include at least one selected ingredient
-  //     const matchingRecipes = mockRecipes.filter(recipe =>
-  //       selectedIngredients.some(ingredient => 
-  //         recipe.ingredients.includes(ingredient)
-  //       )
-  //     );
-  //     // Simulate API delay
-  //     setTimeout(() => {
-  //       setFilteredRecipes(matchingRecipes);
-  //       setLoading(false);
-  //     }, 500);
-  //   };
-
-  //   if (selectedProteins.length > 0 || selectedProduce.length > 0 || selectedOther.length > 0) {
-  //     filterRecipes();
-  //   } else {
-  //     setFilteredRecipes([]);
-  //   }
-  // }, [selectedProteins, selectedProduce, selectedOther]);
-
   useEffect(() => {
     const selectedIngredients = [...selectedProteins, ...selectedProduce, ...selectedOther];
 
     if (selectedIngredients.length > 0) {
-      fetchRecipes(selectedIngredients);
-      //fetchInclusiveRecipes(selectedIngredients);
+      //fetchRecipes(selectedIngredients);
+      fetchInclusiveRecipes(selectedIngredients);
     } else {
       setFilteredRecipes([]);
     }
