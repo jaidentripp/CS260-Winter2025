@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import './recipesForYou.css';
 
+const EDAMAM_APP_ID = ''
+
 export function RecipesForYou() {
   const proteinOptions = ['Chicken', 'Beef', 'Pork', 'Fish', 'Turkey'];
   const produceOptions = ['Potato', 'Carrot', 'Apple', 'Onion', 'Tomato', 'Broccoli', 'Mushroom'];
