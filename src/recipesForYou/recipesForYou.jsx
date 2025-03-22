@@ -13,6 +13,7 @@ export function RecipesForYou() {
   const [selectedOther, setSelectedOther] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Function to fetch recipes from TheMealDB API
   // const fetchRecipes = async (ingredients) => {
@@ -60,6 +61,27 @@ export function RecipesForYou() {
       setLoading(false);
     }
   };
+
+  const fetchRecipeDetails = async (id) => {
+    try {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const data = await response.json();
+      if (data.meals && data.meals.length > 0) {
+        setSelectedRecipe(data.meals[0]);
+      }
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
+    }
+  };
+
+  const handleRecipeClick = (id) => {
+    fetchRecipeDetails(id);
+  };
+
+  const closeRecipeDetails = () => {
+    setSelectedRecipe(null);
+  };
+
 
   // Mock recipe data
   // const mockRecipes = [
@@ -177,6 +199,29 @@ export function RecipesForYou() {
       onSelect={setSelectedOther}/>
 
       <br />
+
+      {selectedRecipe && (
+        <div className="recipe-details-modal">
+          <div className="recipe-details-content">
+            <button onClick={closeRecipeDetails} className="close-button">&times;</button>
+            <h2>{selectedRecipe.strMeal}</h2>
+            <img src={selectedRecipe.strMealThumb} alt={selectedRecipe.strMeal} />
+            <h3>Ingredients:</h3>
+            <ul>
+              {Array.from({ length: 20 }, (_, i) => i + 1).map((i) => {
+                const ingredient = selectedRecipe[`strIngredient${i}`];
+                const measure = selectedRecipe[`strMeasure${i}`];
+                return ingredient && (
+                  <li key={i}>{`${measure} ${ingredient}`}</li>
+                );
+              })}
+            </ul>
+            <h3>Instructions:</h3>
+            <p>{selectedRecipe.strInstructions}</p>
+          </div>
+        </div>
+      )}
+
       <h3>These recipes use the ingredients you have...</h3>
       <div className="recipe-grid">
         {loading ? (
