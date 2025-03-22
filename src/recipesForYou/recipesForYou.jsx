@@ -3,14 +3,9 @@ import React, { useState, useEffect } from 'react';
 import './recipesForYou.css';
 
 export function RecipesForYou() {
-  const proteinOptions = ['Chicken', 'Ground Beef', 'Pork', 'Fish', 'Turkey'];
-  const produceOptions = ['Potatoes', 'Carrots', 'Peaches', 'Cucumber', 'Green Beans', 'Apples'];
-  const otherOptions = ['Cream of mushroom soup',
-    'Brown gravy packet',
-    'Cream of chicken soup',
-    'Beef broth',
-    'Italian seasoning'
-  ];
+  const proteinOptions = ['Chicken', 'Beef', 'Pork', 'Fish', 'Turkey'];
+  const produceOptions = ['Potato', 'Carrot', 'Apple', 'Onion', 'Tomato'];
+  const otherOptions = ['Salt', 'Pepper', 'Olive Oil', 'Garlic', 'Butter'];
 
   // State management
   const [selectedProteins, setSelectedProteins] = useState([]);
@@ -20,24 +15,50 @@ export function RecipesForYou() {
   const [loading, setLoading] = useState(false);
 
   // Function to fetch recipes from TheMealDB API
+  // const fetchRecipes = async (ingredients) => {
+  //   setLoading(true);
+  //   const recipes = [];
+  //   for (const ingredient of ingredients) {
+  //     try {
+  //       const respone = await 
+  //       fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  //       const data = await response.json();
+  //       if (data.meals) {
+  //         recipes.push(...data.meals);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching recipes:', error);
+  //     }
+  //   }
+  //   const uniqueRecipes = Array.from(new Set(recipes.map(r => r.idMeal))).map(id => recipes.find(r => r.idMeal === id));
+  //   setFilteredRecipes(uniqueRecipes);
+  //   setLoading(false);
+  // };
+
   const fetchRecipes = async (ingredients) => {
     setLoading(true);
-    const recipes = [];
-    for (const ingredient of ingredients) {
-      try {
-        const respone = await
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
-        const data = await response.json();
-        if (data.meals) {
-          recipes.push(...data.meals);
-        }
-      } catch (error) {
-        console.error('Error fetching recipes:', error);
-      }
+    try {
+      const responses = await Promise.all(
+        ingredients.map(ingredient =>
+          fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredient)}`)
+        )
+      );
+      
+      const data = await Promise.all(responses.map(res => res.json()));
+      
+      const recipes = data.flatMap(response => response.meals || []);
+      
+      // Remove duplicates using a Set
+      const uniqueRecipes = [...new Map(recipes.map(recipe => 
+        [recipe.idMeal, recipe])).values()];
+      
+      setFilteredRecipes(uniqueRecipes);
+    } catch (error) {
+      console.error('API Error:', error);
+      setFilteredRecipes([]);
+    } finally {
+      setLoading(false);
     }
-    const uniqueRecipes = Array.from(new Set(recipes.map(r => r.idMeal))).map(id => recipes.find(r => r.idMeal === id));
-    setFilteredRecipes(uniqueRecipes);
-    setLoading(false);
   };
 
   // Mock recipe data
@@ -164,7 +185,10 @@ export function RecipesForYou() {
           <p>No matching recipes found. Try selecting different ingredients.</p>
         ) : ( filteredRecipes.map((recipe) => (
           <div key={recipe.idMeal} className="recipe-card">
-              <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+              <img 
+              src={recipe.strMealThumb || 'https://via.placeholder.com/400'} 
+              alt={recipe.strMeal} 
+              />
               <h4>{recipe.strMeal}</h4>
             </div>
           ))
