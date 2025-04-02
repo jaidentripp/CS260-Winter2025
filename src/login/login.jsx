@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [email, setEmail] = useState('');
@@ -6,8 +7,11 @@ export function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //export function Login({ setUserName }) {
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +27,30 @@ export function Login() {
       return;
     }
 
+    // try {
+    //   const response = await fetch ('http://localhost:3000/api/auth/login', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password }),
+    //   });
+
+    //   if (response.ok) {
+    //     const user = await response.json();
+    //     console.log('Login successful:', user);
+
+    //     // Redirect to allRecipes
+    //     window.location.href = '/allRecipes';
+    //   } else if (response.status === 401) {
+    //     setErrorMessage('Invalid email or password.');
+    //   } else {
+    //     setErrorMessage('An error occurred. Please try again.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during login:', error);
+    //   setErrorMessage('Failed to connect to server. Please check your network connection');
+    // }
+
+    //works
     try {
       const userExists = await checkUserExists(email);
       if (!userExists) {
@@ -32,19 +60,21 @@ export function Login() {
 
       //const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-      // const user = users.find(u => u.email === email);
-      // if (user?.name) {
-      //   setUserName(user.name.split(' ')[0]);
-      // } else {
-      //   throw new Error('User data incomplete');
-      // }
+      //const user = users.find(u => u.email === email);
+      //if (user?.name) {
+        //setUserName(user.name.split(' ')[0]);
+      //} else {
+        //throw new Error('User data incomplete');
+      //}
 
+      //works
       console.log('Attempting login with:', { email, password });
+      setIsLoggedIn(true);
 
-      window.location.href = '/allRecipes';
-    } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
-    }
+       //window.location.href = '/allRecipes';
+     } catch (error) {
+       setErrorMessage('An error occurred. Please try again.');
+     }
   
 
     //setErrorMessage('');
@@ -89,7 +119,9 @@ export function Login() {
       // }
 
       // console.log('Account created successfully. Logging in...');
-      window.location.href = '/allRecipes';
+
+      setIsLoggedIn(true);
+      //window.location.href = '/allRecipes';
     } catch (error) {
       setErrorMessage('An error occurred while creating your account. Please try again.');
     }
@@ -103,6 +135,16 @@ export function Login() {
     //window.location.href = '/allRecipes';
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setEmail('');
+    setPassword('');
+    setName('');
+    setErrorMessage('')
+
+    navigate('/');
+  };
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -111,7 +153,7 @@ export function Login() {
   const checkUserExists = async (email) => {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     return users.some(user => user.email === email);
-  }
+  };
 
   const registerUser = (name, email, password) => {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -119,9 +161,34 @@ export function Login() {
     localStorage.setItem('users', JSON.stringify(users));
   };
 
+  // if (isLoggedIn) {
+  //   return (
+  //     <main className="container-fluid bg-light text-center">
+  //       <h1>Welcome Back!</h1>
+  //       <button className="btn btn-primary" onClick={() => window.location.href = '/allRecipes'}>
+  //         Go to All Recipes
+  //       </button>
+  //       <button className="btn btn-secondary" onClick={handleLogout}>
+  //         Logout
+  //       </button>
+  //     </main>
+  //   );
+  // }
+
   return (
     <main className="container-fluid bg-light text-center">
-      <div>
+        {isLoggedIn ? (
+        <div>
+          <h1>Welcome Back!</h1>
+          <button className="btn btn-primary" onClick={() => navigate('/allRecipes')}>
+            Go to All Recipes
+          </button>
+          <button className="btn btn-secondary" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+        ) : (
+        <div>
         <h1>Welcome to Simple Supper</h1>
         {isLogin ? (
         <form onSubmit={handleSubmit}>
@@ -210,6 +277,7 @@ export function Login() {
           </form>
         )}
       </div>
+        )}
     </main>
   );
 }
