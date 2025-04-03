@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -7,10 +7,13 @@ import { Login } from './login/login';
 import { AllRecipes } from './allRecipes/allRecipes';
 import { RecipesForYou } from './recipesForYou/recipesForYou';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 import { useState } from 'react';
 
 export default function App() {
     const [userName, setUserName] = useState('');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
 
   return (
     <BrowserRouter>
@@ -38,6 +41,20 @@ export default function App() {
             </header>
 
             <Routes>
+                <Route
+                    path='/'
+                    element={
+                    <Login
+                        userName={userName}
+                        authState={authState}
+                        onAuthChange={(userName, authState) => {
+                        setAuthState(authState);
+                        setUserName(userName);
+                        }}
+                    />
+                    }
+                    exact
+                />
                 <Route path='/' element={<Login />} exact />
                 <Route path='/allRecipes' element={<AllRecipes />} />
                 <Route path='/recipesForYou' element={<RecipesForYou />} />
