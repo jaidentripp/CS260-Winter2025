@@ -89,6 +89,7 @@ export function Login() {
       //}
 
       //works
+
       console.log('Attempting login with:', { email, password });
       setIsLoggedIn(true);
 
@@ -164,7 +165,8 @@ export function Login() {
       // console.log('Account created successfully. Logging in...');
 
       //works
-      //setIsLoggedIn(true);
+      setIsLoggedIn(true);
+      //navigate('/allRecipes');
       //window.location.href = '/allRecipes';
       //works
     } catch (error) {

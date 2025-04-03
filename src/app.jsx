@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -10,7 +10,7 @@ import { About } from './about/about';
 import { useState } from 'react';
 
 export default function App() {
-  const [userName, setUserName] = useState('');
+    const [userName, setUserName] = useState('');
 
   return (
     <BrowserRouter>
@@ -44,7 +44,7 @@ export default function App() {
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
-
+            
             <footer className="footer-custom">
                 <div className="container-fluid">
                     <span className="text-reset">Jaiden Tripp</span>
