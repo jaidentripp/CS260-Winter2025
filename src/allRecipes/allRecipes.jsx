@@ -6,6 +6,7 @@ export function AllRecipes() {
   const [loading, setLoading] = useState(true);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [visibleRecipes, setVisibleRecipes] = useState(20);
+  const [likedRecipes, setLikedRecipes] = useState(new Set());
 
   useEffect(() => {
     console.log('useEffect triggered');
@@ -52,6 +53,24 @@ export function AllRecipes() {
 
   const loadMore = () => {
     setVisibleRecipes(prevVisible => prevVisible + 20);
+  };
+
+  const toggleHeart = (id) => {
+    // setLikedRecipes((prevLikedRecipes) => {
+    //   const updated = new Set(prevLikedRecipes);
+    //   if (updated.has(id)) {
+    //     updated.delete(id);
+    //   } else {
+    //     updated.add(id);
+    //   }
+    //   return updated;
+    // });
+
+    setLikedRecipes((prev) => {
+      const updated = new Set(prev);
+      updated.has(id) ? updated.delete(id) : updated.add(id);
+      return updated;
+    });
   };
 
   return (
@@ -109,8 +128,18 @@ export function AllRecipes() {
           <div className="recipe-grid">
             {recipes.slice(0, visibleRecipes).map((recipe) => (
               <div key={recipe.idMeal} className="recipe-item" onClick={() => handleRecipeClick(recipe.idMeal)}>
-                <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+                <img src={recipe.strMealThumb} alt={recipe.strMeal} onClick={() => handleRecipeClick(recipe.idMeal)}/>
                 <p>{recipe.strMeal}</p>
+                { /* Heart icon */ }
+                <button
+                  className={`heart-button ${likedRecipes.has(recipe.idMeal) ? 'liked' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    toggleHeart(recipe.idMeal);
+                  }}>
+                      ❤️
+                  </button>
               </div>
             ))}
           </div>
@@ -127,6 +156,16 @@ export function AllRecipes() {
           <button onClick={() => setSelectedRecipe(null)} className="close-button">&times;</button>
           <h3>{selectedRecipe.strMeal}</h3>
           <img src={selectedRecipe.strMealThumb} alt={selectedRecipe.strMeal} />
+          { /* Display heart */ }
+          <button
+            className={`heart-button ${likedRecipes.has(selectedRecipe.idMeal) ? 'liked' : ''}`} 
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              toggleHeart(recipe.idMeal);
+            }}>
+              ❤️
+          </button>
           <h4>Ingredients:</h4>
           <ul>
             {Array.from({ length: 20 }, (_, i) => i + 1).map((i) => {

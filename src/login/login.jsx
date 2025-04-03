@@ -27,12 +27,33 @@ export function Login() {
       return;
     }
 
-    // try {
-    //   const response = await fetch ('http://localhost:3000/api/auth/login', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email, password }),
-    //   });
+    //  try {
+    //    const response = await fetch ('http://localhost:3000/login', {
+    //      method: 'POST',
+    //      headers: { 'Content-Type': 'application/json' },
+    //      body: JSON.stringify({ email, password }),
+    //    });
+
+    //    if (!response.ok) {
+    //     const errorData = await response.json();
+    //     console.error('Error response:', errorData); // Log backend error
+    //     setErrorMessage(errorData.message || 'Login failed');
+    //     return;
+    //    }
+
+    //     const data = await response.json();
+
+    //     //if (response.ok) {
+    //       console.log('Login successful:', data);
+    //       setIsLoggedIn(true);
+    //       navigate('/allRecipes'); // Redirect to recipes page
+    //     // } else {
+    //     //   setErrorMessage(data.message || 'Login failed');
+    //     // }
+    //   } catch (error) {
+    //     console.error('Error during login:', error);
+    //     setErrorMessage('An error occurred. Please try again.');
+    //   }
 
     //   if (response.ok) {
     //     const user = await response.json();
@@ -85,7 +106,7 @@ export function Login() {
     //window.location.href = '/allRecipes';
   };
 
-  const handleCreateAccount = (event) => {
+  const handleCreateAccount = async (event) => {
     event.preventDefault();
 
     if (!name || !email || !password) {
@@ -98,6 +119,28 @@ export function Login() {
       return;
     }
 
+    // try {
+    //   const response = await fetch('http://localhost:3000/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ username: name, email, password }),
+    //   });
+
+    //   const data = await response.json();
+
+    //   if (response.ok) {
+    //     console.log('Account created successfully:', data);
+    //     setIsLoggedIn(true);
+    //     navigate('/allRecipes'); // Redirect to recipes page
+    //   } else {
+    //     setErrorMessage(data.message || 'Registration failed');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during registration:', error);
+    //   setErrorMessage('An error occurred. Please try again.');
+    // }
+
+    //works
     try {
       registerUser(name, email, password);
       console.log('Account created successfully. Logging in...');
@@ -120,8 +163,10 @@ export function Login() {
 
       // console.log('Account created successfully. Logging in...');
 
-      setIsLoggedIn(true);
+      //works
+      //setIsLoggedIn(true);
       //window.location.href = '/allRecipes';
+      //works
     } catch (error) {
       setErrorMessage('An error occurred while creating your account. Please try again.');
     }

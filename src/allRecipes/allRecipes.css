@@ -86,3 +86,24 @@ img {
   .close-button:hover {
     color: #000;
   }
+
+  .heart-button {
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .heart-button.liked {
+    background: #ff69b4; /* Pink background */
+    border-color: #ff69b4;
+    color: white;
+  }
+  
+  .heart-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
