@@ -78,4 +78,11 @@ For this deliverable I did the following. I checked the box [x] and added a desc
 - [x] Calls to third party endpoints - I use a recipe generating API to call recipes that have the ingredients that the user has on hand.
 - [x] Backend service endpoints - Simple endpoints in service/index for login authentication.
 - [x] Frontend calls service endpoints -  All mocked functionality removed from the frontend and replaced with calls to the service.
-- [x] Supports registration, login, logout, and restricted endpoint - Fully support authentication and restrict access to recipes. 
+- [x] Supports registration, login, logout, and restricted endpoint - Fully support authentication and restrict access to recipes.
+- [ ] 
+
+## DB/Login Deliverable
+
+For this deliverable I did the following. I checked the box [x] and added a description for things I completed. 
+- [x] Stores data in MongoDB - Stores login info in MongoDB from ```service/database.js```.
+- [x] Stores credentials in MongoDB - Auth stored in MongoDB from ```service/database.js```.
